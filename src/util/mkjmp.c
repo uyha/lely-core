@@ -44,6 +44,9 @@
 #elif defined(__x86_64__)
 #define MKJMP_SET_SP(sp, size) \
 	__asm__("movq    %0, %%rsp" ::"r"((char *)(sp) + (size)))
+#elif defined(__riscv)
+#define MKJMP_SET_SP(sp, size) \
+	__asm__("move sp, %0" ::"r"((char *)(sp) + (size)))
 #endif
 #elif defined(_MSC_VER)
 #if defined(_M_AMD64)
