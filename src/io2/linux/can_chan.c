@@ -36,6 +36,7 @@
 
 #include <assert.h>
 #include <errno.h>
+#include <stdalign.h>
 #include <stdlib.h>
 
 #if !LELY_NO_THREADS
@@ -228,7 +229,8 @@ static int io_can_chan_impl_set_fd(
 void *
 io_can_chan_alloc(void)
 {
-	struct io_can_chan_impl *impl = malloc(sizeof(*impl));
+	struct io_can_chan_impl *impl = aligned_alloc(
+			alignof(struct io_can_chan_impl), sizeof(*impl));
 	if (!impl)
 		return NULL;
 	// Suppress a GCC maybe-uninitialized warning.
