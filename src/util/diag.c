@@ -109,7 +109,9 @@ snprintf_floc(char *s, size_t n, const struct floc *at)
 			return r;
 		t += r;
 		r = MIN((size_t)r, n);
-		s += r;
+		if (s) {
+			s += r;
+		}
 		n -= r;
 		if (at->line) {
 			r = snprintf(s, n, "%d:", at->line);
@@ -117,7 +119,9 @@ snprintf_floc(char *s, size_t n, const struct floc *at)
 				return r;
 			t += r;
 			r = MIN((size_t)r, n);
-			s += r;
+			if (s) {
+				s += r;
+			}
 			n -= r;
 			if (at->column) {
 				r = snprintf(s, n, "%d:", at->column);
@@ -430,8 +434,9 @@ vsnprintf_diag_at(char *s, size_t n, enum diag_severity severity, int errc,
 {
 	assert(format);
 
-	if (!s)
+	if (!s) {
 		n = 0;
+	}
 
 	int r, t = 0;
 
@@ -440,14 +445,18 @@ vsnprintf_diag_at(char *s, size_t n, enum diag_severity severity, int errc,
 			return r;
 		t += r;
 		r = MIN((size_t)r, n);
-		s += r;
+		if (s) {
+			s += r;
+		}
 		n -= r;
 		r = snprintf(s, n, " ");
 		if (r < 0)
 			return r;
 		t += r;
 		r = MIN((size_t)r, n);
-		s += r;
+		if (s) {
+			s += r;
+		}
 		n -= r;
 	}
 
@@ -463,7 +472,9 @@ vsnprintf_diag_at(char *s, size_t n, enum diag_severity severity, int errc,
 		return r;
 	t += r;
 	r = MIN((size_t)r, n);
-	s += r;
+	if (s) {
+		s += r;
+	}
 	n -= r;
 
 	if (format && *format) {
@@ -472,7 +483,9 @@ vsnprintf_diag_at(char *s, size_t n, enum diag_severity severity, int errc,
 			return r;
 		t += r;
 		r = MIN((size_t)r, n);
-		s += r;
+		if (s) {
+			s += r;
+		}
 		n -= r;
 		if (errc) {
 			r = snprintf(s, n, ": ");
@@ -480,7 +493,9 @@ vsnprintf_diag_at(char *s, size_t n, enum diag_severity severity, int errc,
 				return r;
 			t += r;
 			r = MIN((size_t)r, n);
-			s += r;
+			if (s) {
+				s += r;
+			}
 			n -= r;
 		}
 	}
